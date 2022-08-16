@@ -69,7 +69,14 @@ NavGroup.propTypes = {
   item: PropTypes.shape({
     caption: PropTypes.node,
     title: PropTypes.node,
-    children: PropTypes.node,
+    children: PropTypes.arrayOf(PropTypes.shape({
+      breadcrumbs: PropTypes.bool,
+      icon: PropTypes.func,
+      id: PropTypes.string,
+      title: PropTypes.string,
+      type: PropTypes.string,
+      url: PropTypes.string,
+    })),
   }),
 }
 

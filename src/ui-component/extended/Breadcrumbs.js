@@ -212,7 +212,21 @@ Breadcrumbs.propTypes = {
   icon: PropTypes.bool,
   icons: PropTypes.bool,
   maxItems: PropTypes.number,
-  navigation: PropTypes.node,
+  navigation: PropTypes.shape({
+    items: PropTypes.arrayOf(PropTypes.shape({
+      children: PropTypes.arrayOf(PropTypes.shape({
+        breadcrumbs: PropTypes.bool,
+        icon: PropTypes.func,
+        id: PropTypes.string,
+        title: PropTypes.string,
+        type: PropTypes.string,
+        url: PropTypes.string,
+      })),
+      id: PropTypes.string,
+      title: PropTypes.string,
+      type: PropTypes.string,
+    })),
+  }),
   rightAlign: PropTypes.bool,
   separator: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   title: PropTypes.bool,

@@ -8,6 +8,7 @@ export const initialState = {
   isOpen: [], // for active default menu
   fontFamily: config.fontFamily,
   borderRadius: config.borderRadius,
+  layoutMode: config.layoutMode,
   opened: true,
 }
 
@@ -36,6 +37,11 @@ const customizationReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         borderRadius: action.borderRadius,
+      }
+    case actionTypes.SET_LAYOUT_MODE:
+      return {
+        ...state,
+        layoutMode: action.layoutMode,
       }
     default:
       return state

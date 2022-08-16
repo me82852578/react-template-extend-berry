@@ -117,7 +117,25 @@ function NavItem({ item, level }) {
 }
 
 NavItem.propTypes = {
-  item: PropTypes.node,
+  item: PropTypes.shape({
+    breadcrumbs: PropTypes.bool,
+    icon: PropTypes.func,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    url: PropTypes.string,
+    chip: PropTypes.shape({
+      color: PropTypes.string,
+      variant: PropTypes.string,
+      size: PropTypes.string,
+      label: PropTypes.node,
+      avatar: PropTypes.node,
+    }),
+    target: PropTypes.bool,
+    external: PropTypes.bool,
+    caption: PropTypes.string,
+    disabled: PropTypes.bool,
+  }),
   level: PropTypes.number,
 }
 

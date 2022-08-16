@@ -119,7 +119,20 @@ function NavCollapse({ menu, level }) {
 }
 
 NavCollapse.propTypes = {
-  menu: PropTypes.node,
+  menu: PropTypes.shape({
+    children: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      target: PropTypes.bool,
+      title: PropTypes.string,
+      type: PropTypes.string,
+      url: PropTypes.string,
+    })),
+    icon: PropTypes.func,
+    id: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string,
+    caption: PropTypes.string,
+  }),
   level: PropTypes.number,
 }
 
