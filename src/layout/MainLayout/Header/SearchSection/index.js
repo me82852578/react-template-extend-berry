@@ -50,12 +50,7 @@ const OutlineInputStyle = styled(OutlinedInput, { shouldForwardProp })(({ theme 
 const HeaderAvatarStyle = styled(Avatar, { shouldForwardProp })(({ theme }) => ({
   ...theme.typography.commonAvatar,
   ...theme.typography.mediumAvatar,
-  background: theme.palette.secondary.light,
-  color: theme.palette.secondary.dark,
-  '&:hover': {
-    background: theme.palette.secondary.dark,
-    color: theme.palette.secondary.light,
-  },
+  transition: 'all .2s ease-in-out',
 }))
 
 // ==============|| SEARCH INPUT - MOBILE||============== //

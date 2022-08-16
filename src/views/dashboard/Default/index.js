@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // material-ui
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
 // project imports
 import { gridSpacing } from 'store/constant'
@@ -22,6 +22,7 @@ function Dashboard() {
 
   return (
     <Grid container spacing={gridSpacing}>
+      <Button variant="contained" color="primary">Test</Button>
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item lg={4} md={6} sm={6} xs={12}>

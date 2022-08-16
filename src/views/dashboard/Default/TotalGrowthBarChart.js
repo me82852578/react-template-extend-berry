@@ -44,7 +44,7 @@ function TotalGrowthBarChart({ isLoading }) {
 
   const { navType } = customization
   const { primary } = theme.palette.text
-  const darkLight = theme.palette.dark.light
+  const grey700 = theme.palette.grey[700]
   const grey200 = theme.palette.grey[200]
   const grey500 = theme.palette.grey[500]
 
@@ -108,7 +108,7 @@ function TotalGrowthBarChart({ isLoading }) {
     secondaryMain,
     secondaryLight,
     primary,
-    darkLight,
+    grey700,
     grey200,
     isLoading,
     grey500,

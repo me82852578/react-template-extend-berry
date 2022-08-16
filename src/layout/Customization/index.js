@@ -95,6 +95,8 @@ function Customization() {
     dispatch({ type: SET_LAYOUT_MODE, layoutMode })
   }, [dispatch, layoutMode])
 
+  const renderLabel = (label) => (<Typography>{label}</Typography>)
+
   return (
     <Fragment key={0}>
       {/* toggle button */}
@@ -111,7 +113,7 @@ function Customization() {
             borderBottomLeftRadius: '50%',
             borderTopRightRadius: '50%',
             borderBottomRightRadius: '4px',
-            top: '25%',
+            top: '93%',
             position: 'fixed',
             right: 10,
             zIndex: theme.zIndex.speedDial,
@@ -152,7 +154,7 @@ function Customization() {
                     <FormControlLabel
                       value="light"
                       control={<Radio />}
-                      label="Light"
+                      label={renderLabel('Light')}
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
@@ -161,7 +163,7 @@ function Customization() {
                     <FormControlLabel
                       value="dark"
                       control={<Radio />}
-                      label="Dark"
+                      label={renderLabel('Dark')}
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
@@ -184,7 +186,7 @@ function Customization() {
                     <FormControlLabel
                       value="Roboto"
                       control={<Radio />}
-                      label="Roboto"
+                      label={renderLabel('Roboto')}
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
@@ -193,7 +195,7 @@ function Customization() {
                     <FormControlLabel
                       value="Poppins"
                       control={<Radio />}
-                      label="Poppins"
+                      label={renderLabel('Poppins')}
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },
@@ -202,7 +204,7 @@ function Customization() {
                     <FormControlLabel
                       value="Inter"
                       control={<Radio />}
-                      label="Inter"
+                      label={renderLabel('Inter')}
                       sx={{
                         '& .MuiSvgIcon-root': { fontSize: 28 },
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] },

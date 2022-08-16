@@ -46,6 +46,9 @@ export const theme = (customization) => {
     typography: themeTypography(themeOption),
   }
 
+  // const oriTheme = createTheme({ palette: { mode: 'dark' } })
+
+  // const themes = createTheme(oriTheme, themeOptions)
   const themes = createTheme(themeOptions)
   themes.components = componentStyleOverrides(themeOption)
 

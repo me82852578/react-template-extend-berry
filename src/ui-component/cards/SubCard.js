@@ -19,9 +19,9 @@ const SubCard = forwardRef(({
       ref={ref}
       sx={{
         border: '1px solid',
-        borderColor: theme.palette.primary.light,
-        ':hover': {
-          boxShadow: '0 2px 14px 0 rgb(32 40 45 / 8%)',
+        borderColor: theme.palette.mode === 'light' ? 'rgb(227, 242, 253)' : 'rgba(189, 200, 240, 0.082)',
+        '&:hover': {
+          boxShadow: theme.palette.mode === 'light' ? '0 2px 14px 0 rgb(32 40 45 / 8%)' : 'rgb(33 150 243 / 10%) 0px 2px 14px 0px',
         },
         ...sx,
       }}
@@ -36,7 +36,7 @@ const SubCard = forwardRef(({
         <Divider
           sx={{
             opacity: 1,
-            borderColor: theme.palette.primary.light,
+            borderColor: theme.palette.mode === 'light' ? 'rgb(227, 242, 253)' : 'rgba(189, 200, 240, 0.082)',
           }}
         />
       )}

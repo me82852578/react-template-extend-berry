@@ -23,6 +23,7 @@ import Header from './Header'
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
   ...theme.typography.mainContent,
+  backgroundColor: theme.palette.primary.light,
   ...(!open && {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,

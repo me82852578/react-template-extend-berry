@@ -1,5 +1,6 @@
 export default function componentStyleOverrides(theme) {
-  const bgColor = theme.colors?.grey50
+  const mode = theme?.customization?.layoutMode
+
   return {
     MuiButton: {
       styleOverrides: {
@@ -25,7 +26,6 @@ export default function componentStyleOverrides(theme) {
     MuiCardHeader: {
       styleOverrides: {
         root: {
-          color: theme.colors?.textDark,
           padding: '24px',
         },
         title: {
@@ -50,24 +50,22 @@ export default function componentStyleOverrides(theme) {
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          color: theme.darkTextPrimary,
+          // color: theme.darkTextPrimary,
           paddingTop: '10px',
           paddingBottom: '10px',
           '&.Mui-selected': {
-            color: theme.menuSelected,
-            backgroundColor: theme.menuSelectedBack,
-            '&:hover': {
-              backgroundColor: theme.menuSelectedBack,
-            },
+            color: mode === 'light' ? theme.menuSelected : theme?.colors?.darkSecondaryMain,
+            backgroundColor: mode === 'light' ? theme.menuSelectedBack : 'rgba(124, 77, 255, 0.082)',
             '& .MuiListItemIcon-root': {
-              color: theme.menuSelected,
+              color: mode === 'light' ? theme.menuSelected : theme?.colors?.darkSecondaryMain,
             },
           },
           '&:hover': {
-            backgroundColor: theme.menuSelectedBack,
-            color: theme.menuSelected,
+            fontWeight: 700,
+            backgroundColor: mode === 'light' ? theme.menuSelectedBack : 'rgba(124, 77, 255, 0.082)',
+            color: mode === 'light' ? theme.menuSelected : theme?.colors?.darkSecondaryMain,
             '& .MuiListItemIcon-root': {
-              color: theme.menuSelected,
+              color: mode === 'light' ? theme.menuSelected : theme?.colors?.darkSecondaryMain,
             },
           },
         },
@@ -76,24 +74,19 @@ export default function componentStyleOverrides(theme) {
     MuiListItemIcon: {
       styleOverrides: {
         root: {
-          color: theme.darkTextPrimary,
           minWidth: '36px',
         },
       },
     },
     MuiListItemText: {
       styleOverrides: {
-        primary: {
-          color: theme.textDark,
-        },
+        primary: { },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         input: {
-          color: theme.textDark,
           '&::placeholder': {
-            color: theme.darkTextSecondary,
             fontSize: '0.875rem',
           },
         },
@@ -102,7 +95,7 @@ export default function componentStyleOverrides(theme) {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          background: bgColor,
+          background: mode === 'light' ? theme.colors?.grey50 : theme.colors?.darkBackground,
           borderRadius: `${theme?.customization?.borderRadius}px`,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.colors?.grey400,
@@ -116,7 +109,7 @@ export default function componentStyleOverrides(theme) {
         },
         input: {
           fontWeight: 500,
-          background: bgColor,
+          background: mode === 'light' ? theme.colors?.grey50 : theme.colors?.darkBackground,
           padding: '15.5px 14px',
           borderRadius: `${theme?.customization?.borderRadius}px`,
           '&.MuiInputBase-inputSizeSmall': {
@@ -161,8 +154,16 @@ export default function componentStyleOverrides(theme) {
     MuiAvatar: {
       styleOverrides: {
         root: {
-          color: theme.colors?.primaryDark,
-          background: theme.colors?.primary200,
+          color: theme.colors?.darkSecondaryMain,
+          background: mode === 'light' ? theme?.colors?.secondaryLight : theme?.colors?.darkLevel1,
+          '&:hover': {
+            background: theme?.colors?.secondaryDark,
+            color: theme?.colors?.secondaryLight,
+          },
+          '&[aria-controls="menu-list-grow"],&:hover': {
+            background: theme?.colors?.secondaryDark,
+            color: theme?.colors?.secondaryLight,
+          },
         },
       },
     },
