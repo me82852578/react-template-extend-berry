@@ -1,17 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-// third party
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux'
-
-// project imports
-// import * as serviceWorker from 'serviceWorker'
 import App from 'App'
 import { store } from 'store'
 
 // style + assets
 import 'assets/scss/style.scss'
+import { Provider } from 'react-redux'
 
 (async function run() {
   if (process.env.NODE_ENV === 'development') {
@@ -22,9 +16,7 @@ import 'assets/scss/style.scss'
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <App />
       </Provider>
     </React.StrictMode>,
   )

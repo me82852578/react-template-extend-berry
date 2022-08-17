@@ -3,12 +3,10 @@ import { useSelector } from 'react-redux'
 
 import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material'
 
-// routing
-import Routes from 'routes'
-
 // defaultTheme
 import themes from 'themes'
-import NavigationScroll from 'layout/NavigationScroll'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import RoutesWrapped from 'routes'
 
 // project imports
 // import NavigationScroll from 'layout/NavigationScroll'
@@ -16,17 +14,18 @@ import NavigationScroll from 'layout/NavigationScroll'
 // ==============|| APP ||============== //
 
 function App() {
+  const queryClient = new QueryClient()
   const customization = useSelector((state) => state.customization)
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themes(customization)}>
-        <CssBaseline />
-        <NavigationScroll>
-          <Routes />
-        </NavigationScroll>
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <QueryClientProvider client={queryClient}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={themes(customization)}>
+          <CssBaseline />
+          <RoutesWrapped />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </QueryClientProvider>
   )
 }
 

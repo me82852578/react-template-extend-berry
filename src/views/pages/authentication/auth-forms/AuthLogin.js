@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useMutation } from 'react-query'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
@@ -34,6 +35,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import Google from 'assets/images/icons/social-google.svg'
+import axiosInstance from 'api'
 
 // ============|| FIREBASE - LOGIN ||============ //
 
@@ -43,6 +45,25 @@ function FirebaseLogin({ ...others }) {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'))
   const customization = useSelector((state) => state.customization)
   const [checked, setChecked] = useState(true)
+
+  const login = async (data) => {
+    const res = await axiosInstance({ method: 'post', url: '/api/token/', data })
+    return res.data
+  }
+  const { mutate, isLoading } = useMutation(login, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+    onError: (err) => {
+      console.info(err)
+    },
+  })
+
+  const onSubmit = (data) => {
+    mutate(data)
+  }
+
+  console.info(isLoading)
 
   const googleHandler = async () => {
     console.error('Login')
@@ -125,10 +146,13 @@ function FirebaseLogin({ ...others }) {
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          // eslint-disable-next-line max-len
+          // email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          email: Yup.string().max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required'),
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+          onSubmit({ username: values.email, password: values.password })
           try {
             if (scriptedRef.current) {
               setStatus({ success: true })

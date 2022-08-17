@@ -5,9 +5,10 @@ import { baseUrl } from 'api'
 // eslint-disable-next-line import/prefer-default-export
 const authHandlers = [
   rest.post(`${baseUrl}/api/token/`, async (req, res, ctx) => {
-    const { data } = await req.json()
+    const data = await req.json()
+    console.info(data)
     const { username, password } = data
-    if (username === 'joyce' && password === 'joyce') {
+    if (username === 'admin' && password === '1234') {
       return res(
         ctx.status(200),
         ctx.json({
