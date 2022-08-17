@@ -12,7 +12,6 @@ import { store } from 'store'
 
 // style + assets
 import 'assets/scss/style.scss'
-import config from './config'
 
 // ==============|| REACT DOM RENDER  ||============== //
 
@@ -20,7 +19,7 @@ const container = document.getElementById('root')
 const root = createRoot(container) // createRoot(container!) if you use TypeScript
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename={config.basename}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>,
