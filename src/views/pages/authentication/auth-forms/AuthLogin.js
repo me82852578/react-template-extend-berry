@@ -47,15 +47,17 @@ function FirebaseLogin({ ...others }) {
   const [checked, setChecked] = useState(true)
 
   const login = async (data) => {
-    const res = await axiosInstance({ method: 'post', url: '/api/token/', data })
+    const res = await axiosInstance({ method: 'post', url: '/auth/token', data })
     return res.data
   }
   const { mutate, isLoading } = useMutation(login, {
     onSuccess: (data) => {
       console.log(data)
+      localStorage.setItem('token', data.access_token)
     },
     onError: (err) => {
-      console.info(err)
+      console.info(err.response.data)
+      console.info(err.message)
     },
   })
 
