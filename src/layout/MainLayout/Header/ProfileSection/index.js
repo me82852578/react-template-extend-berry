@@ -61,7 +61,8 @@ function ProfileSection() {
      * */
   const anchorRef = useRef(null)
   const handleLogout = async () => {
-    // console.log('Logout')
+    navigate('/login')
+    localStorage.removeItem('token')
   }
 
   const handleClose = (event) => {

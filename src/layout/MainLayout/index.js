@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles'
@@ -16,6 +17,7 @@ import { SET_MENU } from 'store/actions'
 
 // assets
 import { IconChevronRight } from '@tabler/icons'
+import axiosInstance, { verifyTokenApiConf } from 'api'
 import Customization from '../Customization'
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -66,8 +68,30 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
 }))
 
 // ==============|| MAIN LAYOUT ||============== //
+const verifyToken = async (data) => {
+  const res = await axiosInstance({ ...verifyTokenApiConf, data })
+  return res.data
+}
 
 function MainLayout() {
+  const navigate = useNavigate()
+
+  const { mutate } = useMutation(verifyToken, {
+    onSuccess: () => {},
+    onError: () => {
+      navigate('/login')
+    },
+  })
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      navigate('/dashboard')
+    }
+
+    mutate({ token })
+  }, [mutate, navigate])
+
   const theme = useTheme()
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
 

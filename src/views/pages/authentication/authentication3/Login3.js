@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
@@ -10,6 +10,8 @@ import {
 // project imports
 import Logo from 'ui-component/Logo'
 import AuthFooter from 'ui-component/cards/AuthFooter'
+import axiosInstance, { verifyTokenApiConf } from 'api'
+import { useMutation } from '@tanstack/react-query'
 import AuthWrapper1 from '../AuthWrapper1'
 import AuthCardWrapper from '../AuthCardWrapper'
 import AuthLogin from '../auth-forms/AuthLogin'
@@ -21,6 +23,25 @@ import AuthLogin from '../auth-forms/AuthLogin'
 function Login() {
   const theme = useTheme()
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'))
+  const navigate = useNavigate()
+  const verifyToken = async (data) => {
+    const res = await axiosInstance({ ...verifyTokenApiConf, data })
+    return res.data
+  }
+
+  const { mutate } = useMutation(verifyToken, {
+    onSuccess: () => {
+      navigate('/dashboard')
+    },
+    onError: () => {},
+  })
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      mutate({ token })
+    }
+  }, [mutate, navigate])
 
   return (
     <AuthWrapper1>

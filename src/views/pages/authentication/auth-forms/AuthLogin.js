@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
@@ -16,7 +17,9 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  LinearProgress,
   OutlinedInput,
+  Snackbar,
   Stack,
   Typography,
   useMediaQuery,
@@ -36,39 +39,46 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import Google from 'assets/images/icons/social-google.svg'
 import axiosInstance from 'api'
+import { useNavigate } from 'react-router'
 
 // ============|| FIREBASE - LOGIN ||============ //
+const login = async (data) => {
+  const res = await axiosInstance({ method: 'post', url: '/auth/token', data })
+  return res.data
+}
 
 function FirebaseLogin({ ...others }) {
+  const navigate = useNavigate()
   const theme = useTheme()
   const scriptedRef = useScriptRef()
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'))
   const customization = useSelector((state) => state.customization)
+  const [loginSnackbarOpen, setLoginSnackbarOpen] = useState(false)
   const [checked, setChecked] = useState(true)
 
-  const login = async (data) => {
-    const res = await axiosInstance({ method: 'post', url: '/auth/token', data })
-    return res.data
-  }
   const { mutate, isLoading } = useMutation(login, {
     onSuccess: (data) => {
-      console.log(data)
+      navigate('/dashboard')
       localStorage.setItem('token', data.access_token)
     },
-    onError: (err) => {
-      console.info(err.response.data)
-      console.info(err.message)
+    onError: () => {
+      setLoginSnackbarOpen(true)
     },
   })
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      mutate({ token })
+    }
+  }, [mutate, navigate])
 
   const onSubmit = (data) => {
     mutate(data)
   }
 
-  console.info(isLoading)
-
   const googleHandler = async () => {
-    console.error('Login')
+    // console.error('Login')
   }
 
   const [showPassword, setShowPassword] = useState(false)
@@ -143,7 +153,7 @@ function FirebaseLogin({ ...others }) {
 
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
+          email: 'admin',
           password: '123456',
           submit: null,
         }}
@@ -161,7 +171,6 @@ function FirebaseLogin({ ...others }) {
               setSubmitting(false)
             }
           } catch (err) {
-            console.error(err)
             if (scriptedRef.current) {
               setStatus({ success: false })
               setErrors({ submit: err.message })
@@ -263,15 +272,29 @@ function FirebaseLogin({ ...others }) {
                   size="large"
                   type="submit"
                   variant="contained"
-                  color="secondary"
+                  // color="secondary"
+                  color={loginSnackbarOpen ? 'error' : 'secondary'}
+                  sx={{ display: 'flex', flexDirection: 'column' }}
                 >
                   Sign in
+                  <Stack sx={{ width: '100%', color: 'grey.500' }}>
+                    {isLoading && <LinearProgress />}
+                  </Stack>
                 </Button>
               </AnimateButton>
             </Box>
           </form>
         )}
       </Formik>
+      <Snackbar
+        open={loginSnackbarOpen}
+        autoHideDuration={4000}
+        onClose={() => { setLoginSnackbarOpen(false) }}
+      >
+        <Alert onClose={() => setLoginSnackbarOpen(false)} severity="error" sx={{ width: '100%' }}>
+          帳號或密碼錯誤。
+        </Alert>
+      </Snackbar>
     </Fragment>
   )
 }

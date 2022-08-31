@@ -5,7 +5,7 @@ import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material'
 
 // defaultTheme
 import themes from 'themes'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import RoutesWrapped from 'routes'
 
 // project imports
