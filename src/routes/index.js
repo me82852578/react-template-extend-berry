@@ -1,5 +1,7 @@
 import React, { lazy } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter, Navigate, Route, Routes,
+} from 'react-router-dom'
 
 import MainLayout from 'layout/MainLayout'
 import Loadable from 'ui-component/Loadable'
@@ -24,6 +26,7 @@ export default function RoutesWrapped() {
       <NavigationScroll>
         <Routes>
           <Route path="/" element={<MinimalLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="login" element={<AuthLogin3 />} />
             <Route path="register" element={<AuthRegister3 />} />
           </Route>
