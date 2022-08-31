@@ -1,3 +1,3 @@
 export * from './auth'
-export * from './visitors'
+export * from './keywords'
 export * from './tags'

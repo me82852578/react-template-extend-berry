@@ -5,6 +5,7 @@ import MainLayout from 'layout/MainLayout'
 import Loadable from 'ui-component/Loadable'
 import MinimalLayout from 'layout/MinimalLayout'
 import NavigationScroll from 'layout/NavigationScroll'
+import KeywordsPage from 'views/keywords'
 
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')))
@@ -28,6 +29,7 @@ export default function RoutesWrapped() {
           </Route>
           <Route path="dashboard" element={<MainLayout />}>
             <Route index element={<DashboardDefault />} />
+            <Route path="keywords" element={<KeywordsPage />} />
             <Route path="utils/util-typography" element={<UtilsTypography />} />
             <Route path="utils/util-color" element={<UtilsColor />} />
             <Route path="utils/util-shadow" element={<UtilsShadow />} />
