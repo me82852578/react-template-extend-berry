@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 // material-ui
 import { useTheme } from '@mui/material/styles'
@@ -19,19 +19,24 @@ import AuthLogin from '../auth-forms/AuthLogin'
 // assets
 
 // ================|| AUTH3 - LOGIN ||================ //
+const verifyToken = async (data) => {
+  const res = await axiosInstance({ ...verifyTokenApiConf, data })
+  return res.data
+}
 
 function Login() {
   const theme = useTheme()
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'))
   const navigate = useNavigate()
-  const verifyToken = async (data) => {
-    const res = await axiosInstance({ ...verifyTokenApiConf, data })
-    return res.data
-  }
+  const location = useLocation()
 
   const { mutate } = useMutation(verifyToken, {
     onSuccess: () => {
-      navigate('/dashboard')
+      if (location.state?.from.pathname) {
+        navigate(location.state.from.pathname, { replace: true })
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
     },
     onError: () => {},
   })

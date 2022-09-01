@@ -78,7 +78,8 @@ MainCard.propTypes = {
   darkTitle: PropTypes.bool,
   secondary: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
   shadow: PropTypes.string,
-  sx: PropTypes.node,
+  // eslint-disable-next-line react/forbid-prop-types
+  sx: PropTypes.object,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object]),
 }
 

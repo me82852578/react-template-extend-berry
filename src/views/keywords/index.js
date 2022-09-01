@@ -19,8 +19,6 @@ function KeywordsPage() {
     getAllKeywords,
   )
 
-  console.info(data)
-
   return (
     <MainCard title="Sample Card">
       <Box sx={{ height: '800px', width: '100%' }}>

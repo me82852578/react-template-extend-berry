@@ -8,6 +8,7 @@ import Loadable from 'ui-component/Loadable'
 import MinimalLayout from 'layout/MinimalLayout'
 import NavigationScroll from 'layout/NavigationScroll'
 import KeywordsPage from 'views/keywords'
+import PrivateRoutes from './PrivateRoutes'
 
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const UtilsTypography = Loadable(lazy(() => import('views/utilities/Typography')))
@@ -30,15 +31,17 @@ export default function RoutesWrapped() {
             <Route path="login" element={<AuthLogin3 />} />
             <Route path="register" element={<AuthRegister3 />} />
           </Route>
-          <Route path="dashboard" element={<MainLayout />}>
-            <Route index element={<DashboardDefault />} />
-            <Route path="keywords" element={<KeywordsPage />} />
-            <Route path="utils/util-typography" element={<UtilsTypography />} />
-            <Route path="utils/util-color" element={<UtilsColor />} />
-            <Route path="utils/util-shadow" element={<UtilsShadow />} />
-            <Route path="icons/tabler-icons" element={<UtilsTablerIcons />} />
-            <Route path="icons/material-icons" element={<UtilsMaterialIcons />} />
-            <Route path="sample-page" element={<SamplePage />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="dashboard" element={<MainLayout />}>
+              <Route index element={<DashboardDefault />} />
+              <Route path="keywords" element={<KeywordsPage />} />
+              <Route path="utils/util-typography" element={<UtilsTypography />} />
+              <Route path="utils/util-color" element={<UtilsColor />} />
+              <Route path="utils/util-shadow" element={<UtilsShadow />} />
+              <Route path="icons/tabler-icons" element={<UtilsTablerIcons />} />
+              <Route path="icons/material-icons" element={<UtilsMaterialIcons />} />
+              <Route path="sample-page" element={<SamplePage />} />
+            </Route>
           </Route>
         </Routes>
       </NavigationScroll>

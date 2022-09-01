@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 
@@ -39,7 +39,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import Google from 'assets/images/icons/social-google.svg'
 import axiosInstance from 'api'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 // ============|| FIREBASE - LOGIN ||============ //
 const login = async (data) => {
@@ -49,6 +49,7 @@ const login = async (data) => {
 
 function FirebaseLogin({ ...others }) {
   const navigate = useNavigate()
+  const location = useLocation()
   const theme = useTheme()
   const scriptedRef = useScriptRef()
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'))
@@ -58,20 +59,17 @@ function FirebaseLogin({ ...others }) {
 
   const { mutate, isLoading } = useMutation(login, {
     onSuccess: (data) => {
-      navigate('/dashboard')
       localStorage.setItem('token', data.access_token)
+      if (location.state?.from.pathname) {
+        navigate(location.state.from.pathname, { replace: true })
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
     },
     onError: () => {
       setLoginSnackbarOpen(true)
     },
   })
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      mutate({ token })
-    }
-  }, [mutate, navigate])
 
   const onSubmit = (data) => {
     mutate(data)
